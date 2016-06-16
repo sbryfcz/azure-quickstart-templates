@@ -109,8 +109,8 @@ fi
 mongo --port 27017 <<EOF
 use admin
 db.auth("$mongoAdminUser","$mongoAdminPasswd")
-sh.addShard("repset1/10.0.0.100:27017")
-sh.addShard("repset2/10.0.0.110:27017")
+sh.addShard("10.0.0.100:27017")
+sh.addShard("10.0.0.110:27017")
 db.runCommand( { listshards : 1 } )
 exit
 EOF
