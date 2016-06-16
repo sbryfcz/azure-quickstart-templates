@@ -151,25 +151,25 @@ else
 fi
 
 #restart mongod with auth and replica set
-mongod --dbpath /var/lib/mongo/ --replSet $replSetName --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
-
+#mongod --dbpath /var/lib/mongo/ --replSet $replSetName --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
+mongod --dbpath /var/lib/mongo/ --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
 
 
 
 
 #initiate replica set
-for((i=1;i<=3;i++))
-do
-	sleep 15
-	n=`ps -ef |grep -v grep|grep mongod |wc -l`
-	if [[ $n -eq 1 ]];then
-		echo "mongo replica set started successfully"
-		break
-	else
-		mongod --dbpath /var/lib/mongo/ --replSet $replSetName --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
-		continue
-	fi
-done
+# for((i=1;i<=3;i++))
+# do
+# 	sleep 15
+# 	n=`ps -ef |grep -v grep|grep mongod |wc -l`
+# 	if [[ $n -eq 1 ]];then
+# 		echo "mongo replica set started successfully"
+# 		break
+# 	else
+# 		mongod --dbpath /var/lib/mongo/ --replSet $replSetName --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
+# 		continue
+# 	fi
+# done
 
 n=`ps -ef |grep -v grep|grep mongod |wc -l`
 if [[ $n -ne 1 ]];then
@@ -181,8 +181,6 @@ fi
 mongo<<EOF
 use admin
 db.auth("$mongoAdminUser", "$mongoAdminPasswd")
-config ={_id:"$replSetName",members:[{_id:0,host:"$staticIP:27017"}]}
-rs.initiate(config)
 exit
 EOF
 if [[ $? -eq 0 ]];then
@@ -228,7 +226,7 @@ if [[ ! -d /var/run/mongodb ]];then
 mkdir /var/run/mongodb
 chown -R mongod:mongod /var/run/mongodb
 fi
-mongod --dbpath /var/lib/mongo/ --replSet $replSetName --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
+mongod --dbpath /var/lib/mongo/ --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
 }
 stop() {
 pkill mongod
