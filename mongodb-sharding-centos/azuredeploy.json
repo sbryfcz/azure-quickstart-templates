@@ -159,7 +159,7 @@
     "configSecondaryTemplateUrl": "[concat(variables('templateBaseUrl'), 'config-secondary-resources.json')]",
     "router1TemplateUrl": "[concat(variables('templateBaseUrl'), 'router1-resources.json')]",		
     "router2TemplateUrl": "[concat(variables('templateBaseUrl'), 'router2-resources.json')]",
-    "replicaPrimaryTemplateUrl": "[concat(variables('templateBaseUrl'), 'replica-primary-resources.json')]"
+    "replicaPrimaryTemplateUrl": "[concat(variables('templateBaseUrl'), 'replica-primary-resources.json')]",
     "namespace": "mongodb-",
     "virtualNetworkName": "myVNET",
     "apiVersion": "2015-01-01",
