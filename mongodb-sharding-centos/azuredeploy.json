@@ -4,30 +4,35 @@
   "parameters": {
     "adminUsername": {
       "type": "string",
+      "defaultValue":"architecture",
       "metadata": {
         "description": "Administrator user name used when provisioning virtual machines"
       }
     },
     "adminPassword": {
       "type": "securestring",
+      "defaultValue":"Welcome!12345",
       "metadata": {
         "description": "Administrator password used when provisioning virtual machines"
       }
     },
     "mongoAdminUsername": {
       "type": "string",
+      "defaultValue":"architecture",
       "metadata": {
         "description": "MongoDB Administrator user name used when provisioning MongoDB sharding cluster"
       }
     },
     "mongoAdminPassword": {
       "type": "securestring",
+      "defaultValue":"Welcome!12345",
       "metadata": {
         "description": "MongoDB Administrator password used when provisioning MongoDB sharding cluster"
       }
     },
     "dnsNamePrefix": {
       "type": "string",
+      "defaultValue": "usaimongo",
       "metadata": {
         "description": "DNS Name for the publicly accessible router nodes. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
       }
@@ -83,7 +88,7 @@
     },
     "routerNodeVmSize": {
       "type": "string",
-      "defaultValue": "Standard_A3",
+      "defaultValue": "Standard_A2",
       "allowedValues": [
         "Standard_A2",
         "Standard_A3",
@@ -104,7 +109,7 @@
     },
     "configNodeVmSize": {
       "type": "string",
-      "defaultValue": "Standard_A3",
+      "defaultValue": "Standard_A2",
       "allowedValues": [
         "Standard_A2",
         "Standard_A3",
@@ -125,7 +130,7 @@
     },
     "replicaNodeVmSize": {
       "type": "string",
-      "defaultValue": "Standard_A3",
+      "defaultValue": "Standard_A2",
       "allowedValues": [
         "Standard_A2",
         "Standard_A3",
