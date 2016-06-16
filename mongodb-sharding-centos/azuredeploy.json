@@ -11,7 +11,7 @@
     },
     "adminPassword": {
       "type": "securestring",
-      "defaultValue":"Welcome!12345",
+      "defaultValue":"",
       "metadata": {
         "description": "Administrator password used when provisioning virtual machines"
       }
@@ -25,7 +25,7 @@
     },
     "mongoAdminPassword": {
       "type": "securestring",
-      "defaultValue":"Welcome!12345",
+      "defaultValue":"",
       "metadata": {
         "description": "MongoDB Administrator password used when provisioning MongoDB sharding cluster"
       }
