@@ -72,7 +72,7 @@ install_zabbix() {
 }
 
 install_mongo3
-install_zabbix
+#install_zabbix
 
 
 

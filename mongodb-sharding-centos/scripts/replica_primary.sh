@@ -97,7 +97,7 @@ install_zabbix() {
 
 install_mongo3
 disk_format
-install_zabbix
+#install_zabbix
 
 
 #start mongod
@@ -150,33 +150,27 @@ else
 	sleep 15
 fi
 
-#restart mongod with auth and replica set
-#mongod --dbpath /var/lib/mongo/ --replSet $replSetName --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
+#restart mongod with auth and shard
 mongod --dbpath /var/lib/mongo/ --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
 
-
-
-
-#initiate replica set
-# for((i=1;i<=3;i++))
-# do
-# 	sleep 15
-# 	n=`ps -ef |grep -v grep|grep mongod |wc -l`
-# 	if [[ $n -eq 1 ]];then
-# 		echo "mongo replica set started successfully"
-# 		break
-# 	else
-# 		mongod --dbpath /var/lib/mongo/ --replSet $replSetName --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
-# 		continue
-# 	fi
-# done
+#initiate shard
+for((i=1;i<=3;i++))
+do
+	sleep 15
+	n=`ps -ef |grep -v grep|grep mongod |wc -l`
+	if [[ $n -eq 1 ]];then
+		echo "mongo shard started successfully"
+		break
+	else
+		mongod --dbpath /var/lib/mongo/ --logpath /var/log/mongodb/mongod.log --fork --config /etc/mongod.conf
+		continue
+	fi
+done
 
 n=`ps -ef |grep -v grep|grep mongod |wc -l`
 if [[ $n -ne 1 ]];then
-	echo "mongo replica set tried to start 3 times but failed!"
+	echo "mongo shard tried to start 3 times but failed!"
 fi
-
-
 
 mongo<<EOF
 use admin
@@ -184,34 +178,10 @@ db.auth("$mongoAdminUser", "$mongoAdminPasswd")
 exit
 EOF
 if [[ $? -eq 0 ]];then
-	echo "replica set initiation succeeded."
+	echo "shard initiation succeeded."
 else
-	echo "replica set initiation failed!"
+	echo "shard initiation failed!"
 fi
-
-
-#get replica secondary nodes ips
-num=`echo $staticIP |awk -F"." '{print $NF}'`
-if [[ $num -eq 100 ]];then
-	let g=$num-97
-elif [[ $num -eq 110 ]];then
-	let g=$num-105
-fi
-
-#add secondary nodes
-for((i=1;i<=2;i++))
-do
-	let a=$i+$g
-	mongo -u "$mongoAdminUser" -p "$mongoAdminPasswd" "admin" --eval "printjson(rs.add('10.0.0.${a}:27017'))"
-	if [[ $? -eq 0 ]];then
-		echo "adding server 10.0.0.${a} successfully"
-	else
-		echo "adding server 10.0.0.${a} failed!"
-	fi
-done
-
-
-
 
 #set mongod auto start
 cat > /etc/init.d/mongod1 <<EOF

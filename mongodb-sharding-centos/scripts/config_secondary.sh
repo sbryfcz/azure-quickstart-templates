@@ -78,11 +78,10 @@ install_zabbix() {
 
 
 install_mongo3
-install_zabbix
+#install_zabbix
 
 #start config replica set
 mongod --configsvr --replSet crepset --port 27019 --dbpath /var/lib/mongo/ --logpath /var/log/mongodb/config.log --fork --config /etc/mongod.conf
-
 
 
 

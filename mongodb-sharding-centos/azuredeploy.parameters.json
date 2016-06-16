@@ -27,13 +27,13 @@
         "value": "7.0"
     },
     "routerNodeVmSize": {
-      "value": "Standard_A3"
+      "value": "Standard_A2"
     },
     "configNodeVmSize": {
-      "value": "Standard_A3"
+      "value": "Standard_A2"
     },
     "replicaNodeVmSize": {
-      "value": "Standard_A3"
+      "value": "Standard_A2"
     },
     "zabbixServerIPAddress": {
 	  "value": "Null"
